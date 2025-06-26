@@ -9,7 +9,9 @@ jobs:
 
     steps:
       - name: Checkout this repo
-        uses: actions/checkout@v3       
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKENTEST }}
 
       - name: Clone external repo
         run: |
