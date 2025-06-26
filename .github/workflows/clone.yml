@@ -1,7 +1,7 @@
 name: Clone external repo
 
 on:
-  workflow_dispatch:  # Cho phép chạy thủ công
+  workflow_dispatch:
 
 jobs:
   clone:
@@ -9,16 +9,21 @@ jobs:
 
     steps:
       - name: Checkout this repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3       
 
       - name: Clone external repo
         run: |
           git clone https://github.com/papasgamesfree/papasgamesfree.github.io.git external-repo
-          
-      - name: Commit cloned repo
+
+      - name: Copy contents to current repo
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add external-repo
-          git commit -m "Cloned external repo"
+          cp -r external-repo/* .
+          rm -rf external-repo
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "ktmanh"
+          git config --global user.email "kieutrimanh@gmail.com"
+          git add .
+          git commit -m "Cloned and copied external repo"
           git push
